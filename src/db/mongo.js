@@ -10,7 +10,7 @@ const mongoConnect = async () => {
             useUnifiedTopology: true,
         });
 
-        _db = client.db(process.env.DB_NAME);
+        _db = client.db(process.env.DB_NAME || "tradingmaster");
         lead_coll = _db.collection("leads");
 
         console.log("✅ Database plugged in and healthy to serve!");

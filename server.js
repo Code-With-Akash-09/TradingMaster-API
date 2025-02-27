@@ -7,29 +7,30 @@ import morgan from "morgan";
 
 const app = express();
 
-// Logging middleware
-app.use(morgan("tiny"));
-
 // Middleware
-app.use(cors({
-    origin: [""],
-    methods: ["POST", "GET", "PUT", "DELETE"],
-    credentials: true
-}));
-
+app.use(morgan("tiny"));
+app.use(cors({ origin: "*", methods: ["POST", "GET", "PUT", "DELETE"], credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// API Routes
-app.use("/v1/lead", leadRouter);
+// Connect to MongoDB before handling requests
+const startServer = async () => {
+    await mongoConnect(); // ✅ Ensures DB is connected before API requests
+    console.log("✅ Database connected. Setting up routes...");
 
-// Test Route
-app.get('/', (req, res) => {
-    res.json({ message: 'Welcome to the Node.js API' });
+    // API Routes
+    app.use("/v1/lead", leadRouter);
+
+    // Test Route
+    app.get("/", (req, res) => {
+        res.json({ message: "Welcome to the Node.js API" });
+    });
+};
+
+// Initialize DB connection before starting the app
+startServer().catch(err => {
+    console.error("❌ MongoDB connection failed:", err);
 });
 
-// Connect to MongoDB
-mongoConnect();
-
-// ✅ Export app for Vercel (instead of app.listen)
+// ✅ Export app for Vercel
 export default app;
