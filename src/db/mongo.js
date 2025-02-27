@@ -5,7 +5,7 @@ let _db, lead_coll
 const mongoConnect = async () => {
     new Promise(async (resolve, reject) => {
         MongoClient.connect(process.env.COMMUNITY_URI, {
-            useUnifiedTopology: true,
+            useNewUrlParser: true,
         })
             .then(async client => {
                 _db = await client.db()
