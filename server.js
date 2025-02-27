@@ -20,6 +20,10 @@ app.use(cors({
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true
 }));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
+
 if (cluster.isPrimary) {
     console.log(`Number of CPUs is ${cpus().length}`)
     console.log(`Master ${process.pid} is running`)
