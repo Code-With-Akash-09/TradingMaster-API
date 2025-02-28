@@ -1,5 +1,5 @@
-import { success, error, validation } from "../../configs/response.js"
-import { successLogger, errorLogger } from "../../services/logger.js"
+import { success } from "../../configs/response"
+import { successLogger } from "../../services/logger.js"
 
 const check = (req, res) => {
     successLogger.info({
@@ -16,3 +16,4 @@ const check = (req, res) => {
 }
 
 export { check }
+

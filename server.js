@@ -2,8 +2,8 @@ import cors from "cors";
 import "dotenv/config";
 import express from "express";
 import morgan from "morgan";
-import { mongoConnect } from "./src/db/mongo.js";
-import leadRouter from "./src/routes/v1/lead.js";
+import { mongoConnect } from "./db/mongo.js";
+import leadRouter from "./routes/v1/lead.js";
 
 const app = express();
 
