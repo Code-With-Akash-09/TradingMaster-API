@@ -12,7 +12,7 @@ app.use(morgan("tiny"));
 
 // Middleware
 app.use(cors({
-    origin: [""],
+    origin: "*", // Update this with your frontend URL in production
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true
 }));
@@ -28,8 +28,12 @@ app.get('/', (req, res) => {
     res.json({ message: 'Welcome to the Node.js API' });
 });
 
-// Connect to MongoDB
-mongoConnect();
+// Initialize MongoDB before starting the server
+try {
+    await mongoConnect();
+} catch (error) {
+    console.error('Failed to connect to MongoDB:', error);
+}
 
 // ✅ Export app for Vercel (instead of app.listen)
 export default app;
