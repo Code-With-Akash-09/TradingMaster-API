@@ -1,6 +1,6 @@
-import "winston-mongodb"
 import "dotenv/config"
 import { createLogger, format, transports } from "winston"
+import "winston-mongodb"
 
 let option1 = {
     db: process.env.COMMUNITY_URI,
@@ -26,4 +26,5 @@ const errorLogger = createLogger({
     transports: [new transports.MongoDB(option1)],
 })
 
-export { successLogger, errorLogger }
+export { errorLogger, successLogger }
+
